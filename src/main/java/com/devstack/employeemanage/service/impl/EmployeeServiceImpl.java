@@ -1,6 +1,7 @@
 package com.devstack.employeemanage.service.impl;
 
-import com.devstack.employeemanage.dto.EmployeeDto;
+import com.devstack.employeemanage.dto.request.RequestEmployeeDto;
+import com.devstack.employeemanage.dto.response.ResponseEmployeeDto;
 import com.devstack.employeemanage.entity.Employee;
 import com.devstack.employeemanage.exception.NotFoundException;
 import com.devstack.employeemanage.repository.EmployeeRepo;
@@ -10,61 +11,62 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    @Autowired
-    private EmployeeRepo employeeRepo;
+    private  EmployeeRepo employeeRepo;
 
+    @Autowired
+    public EmployeeServiceImpl(EmployeeRepo employeeRepo){
+        this.employeeRepo = employeeRepo;
+    }
 
     @Override
-    public String saveEmployee(EmployeeDto employeeDto) {
+    public String saveEmployee(RequestEmployeeDto requestEmployeeDto) {
         Employee employee = new Employee(
 
-                employeeDto.getFirstName(),
-                employeeDto.getLastName(),
-                employeeDto.getEmail(),
-                employeeDto.getContactNumber()
+                requestEmployeeDto.getFullName(),
+                requestEmployeeDto.getAddress(),
+                requestEmployeeDto.getEmail(),
+                requestEmployeeDto.getContactNumber()
         );
 
         employeeRepo.save(employee);
-        return employee.getFirstName() + "saved";
+        return employee.getFullName()+ " saved";
     }
 
     @Override
-    public String updateEmployee(EmployeeDto employeeDto) {
-        if(employeeRepo.existsById(employeeDto.getId())){
-            Employee employee = employeeRepo.getReferenceById(employeeDto.getId());
-
-            employee.setFirstName(employeeDto.getFirstName());
-            employee.setLastName(employeeDto.getLastName());
-            employee.setEmail(employeeDto.getEmail());
-            employee.setContactNumber(employeeDto.getContactNumber());
-
-            employeeRepo.save(employee);
-            return employee.getFirstName() + "Updated";
+    public void updateEmployee(long id, RequestEmployeeDto requestEmployeeDto) {
+        Optional<Employee> selectedEmployee = employeeRepo.findById(id);
+        if (selectedEmployee.isEmpty()) {
+            throw new NotFoundException("Employee Not Found");
         }
-        else {
-            throw new NotFoundException("No data Found for that ID");
-        }
+        Employee employee = selectedEmployee.get();
+        employee.setFullName(requestEmployeeDto.getFullName());
+        employee.setAddress(requestEmployeeDto.getAddress());
+        employee.setEmail(requestEmployeeDto.getEmail());
+        employee.setContactNumber(requestEmployeeDto.getContactNumber());
+
+        employeeRepo.save(employee);
     }
 
     @Override
-    public EmployeeDto getEmployeeById(long id) {
+    public ResponseEmployeeDto getEmployeeById(long id) {
         if(employeeRepo.existsById(id)) {
             Employee employee = employeeRepo.getReferenceById(id);
 
-            EmployeeDto employeeDto = new EmployeeDto(
+            ResponseEmployeeDto responseEmployeeDto = new ResponseEmployeeDto(
                     employee.getId(),
-                    employee.getFirstName(),
-                    employee.getLastName(),
+                    employee.getFullName(),
+                    employee.getAddress(),
                     employee.getEmail(),
                     employee.getContactNumber()
             );
 
-            return employeeDto;
+            return responseEmployeeDto;
         }
         else {
             throw new NotFoundException("No Employee");
@@ -83,15 +85,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeDto> getAllEmployees() {
+    public List<ResponseEmployeeDto> getAllEmployees() {
         List<Employee> EmployeeDtoList = employeeRepo.findAll();
-        List <EmployeeDto> employeeDtos = new ArrayList<>();
+        List <ResponseEmployeeDto> employeeDtos = new ArrayList<>();
 
         for(Employee employee : EmployeeDtoList){
-            EmployeeDto EmployeeDto = new EmployeeDto(
+            ResponseEmployeeDto EmployeeDto = new ResponseEmployeeDto(
                     employee.getId(),
-                    employee.getFirstName(),
-                    employee.getLastName(),
+                    employee.getFullName(),
+                    employee.getAddress(),
                     employee.getEmail(),
                     employee.getContactNumber()
             );
