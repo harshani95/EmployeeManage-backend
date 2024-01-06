@@ -48,9 +48,9 @@ public class EmployeeController {
     }
 
 
-    @GetMapping(path = "/get-by-id", params = "id")
+    @GetMapping(path = "/get-by-id/{id}")
     public ResponseEntity<StandardResponse> getEmployeeById(
-            @RequestParam(value = "id") long id)
+            @PathVariable(value = "id") long id)
     {
         ResponseEmployeeDto responseEmployeeDto = employeeService.getEmployeeById(id);
         return new ResponseEntity<>(
