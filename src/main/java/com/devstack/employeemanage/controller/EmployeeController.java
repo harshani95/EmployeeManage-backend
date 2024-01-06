@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/employees")
-@CrossOrigin()
+@CrossOrigin(origins = "http://localhost:5175")
 
 public class EmployeeController {
 
@@ -66,7 +66,7 @@ public class EmployeeController {
         );
     }
 
-    @GetMapping(path = "get-all-employees")
+    @GetMapping(path = "/get-all-employees")
     public ResponseEntity<StandardResponse> getAllEmployees() {
         List<ResponseEmployeeDto> allEmployees = employeeService.getAllEmployees();
         return new ResponseEntity<>(
