@@ -14,8 +14,6 @@ public interface EmployeeService {
 
     public void deleteEmployee(long id);
 
-   // public List<ResponseEmployeeDto> getAllEmployees();
-
     public PaginatedEmployeeResponseDto getAllEmployees(String searchText, int page, int size);
 
 }

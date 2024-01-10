@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/employees")
@@ -66,14 +65,6 @@ public class EmployeeController {
         );
     }
 
- /*   @GetMapping(path = "/get-all-employees")
-    public ResponseEntity<StandardResponse> getAllEmployees() {
-        List<ResponseEmployeeDto> allEmployees = employeeService.getAllEmployees();
-        return new ResponseEntity<>(
-                new StandardResponse(200, "All Employee List", allEmployees), HttpStatus.OK
-        );
-    }*/
-
     @GetMapping(path = "/get-all-employees", params = {"searchText","page","size"})
     public ResponseEntity<StandardResponse> getAllEmployees(
             @RequestParam (name = "searchText" , defaultValue = "") String searchText,
@@ -86,25 +77,5 @@ public class EmployeeController {
                 HttpStatus.OK
         );
     }
-
-
-
-
-//    @GetMapping(path = "/get-by-name/{name}")
-//    public ResponseEntity<StandardResponse> getEmployeeByName(
-//            @PathVariable(value = "name") String name) throws NotFoundException {
-//        List<ResponseEmployeeDto> getEmployee = employeeService.getEmployeeByName(name);
-//        return new ResponseEntity<StandardResponse>(
-//                new StandardResponse(200,"",getEmployee),HttpStatus.OK
-//        );
-//    }
-
-//    @GetMapping(path = "/get-by-name", params = "name")
-//    public ResponseEntity<StandardResponse> getEmployeeByName(@RequestParam(value = "name") String name) throws NotFoundException {
-//        List<ResponseEmployeeDto> getEmployee = employeeService.getEmployeeByName(name);
-//        return new ResponseEntity<StandardResponse>(
-//                new StandardResponse(200,"",getEmployee),HttpStatus.OK
-//        );
-//    }
 
 }

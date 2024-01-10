@@ -4,7 +4,6 @@ import com.devstack.employeemanage.dto.request.RequestEmployeeDto;
 import com.devstack.employeemanage.dto.response.ResponseEmployeeDto;
 import com.devstack.employeemanage.entity.Employee;
 import org.mapstruct.Mapper;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 

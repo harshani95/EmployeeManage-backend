@@ -59,23 +59,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public ResponseEmployeeDto getEmployeeById(long id) {
 
-       /* if(employeeRepo.existsById(id)) {
-            Employee employee = employeeRepo.getReferenceById(id);
-
-            ResponseEmployeeDto responseEmployeeDto = new ResponseEmployeeDto(
-                    employee.getId(),
-                    employee.getName(),
-                    employee.getAddress(),
-                    employee.getEmail(),
-                    employee.getContactNumber()
-            );
-
-            return responseEmployeeDto;
-        }
-        else {
-            throw new NotFoundException("No Employee");
-        }*/
-
         Optional<Employee> selectedEmployee = employeeRepo.findById(id);
         if (selectedEmployee.isEmpty()) {
             throw new NotFoundException("Employee Not Found");
@@ -85,14 +68,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void deleteEmployee(long id) {
-
-        /*if(employeeRepo.existsById(id)){
-            employeeRepo.deleteById(id);
-            return id + " deleted";
-        }
-        else{
-            throw new NotFoundException("No Employee For Delete");
-        }*/
 
         Optional<Employee> selectedEmployee = employeeRepo.findById(id);
         if (selectedEmployee.isEmpty()) {
@@ -112,48 +87,5 @@ public class EmployeeServiceImpl implements EmployeeService {
                 responseEmployeeDtos
         );
     }
-
-
-   /* @Override
-    public List<ResponseEmployeeDto> getAllEmployees() {
-        List<Employee> EmployeeDtoList = employeeRepo.findAll();
-        List <ResponseEmployeeDto> employeeDtos = new ArrayList<>();
-
-        for(Employee employee : EmployeeDtoList){
-            ResponseEmployeeDto EmployeeDto = new ResponseEmployeeDto(
-                    employee.getId(),
-                    employee.getName(),
-                    employee.getAddress(),
-                    employee.getEmail(),
-                    employee.getContactNumber()
-            );
-            employeeDtos.add(EmployeeDto);
-        }
-        return employeeDtos;
-    }*/
-
-    /*@Override
-    public List<ResponseEmployeeDto> getEmployeeByName(String name) {
-
-        List<Employee> employees = employeeRepo.findAllByNameContainingIgnoreCase(name);
-
-        if (employees.size() != 0) {
-            List<ResponseEmployeeDto> responseEmployeeDtos = modelMapper.
-                    map(employees, new TypeToken<List<ResponseEmployeeDto>>() {
-                    }.getType());
-            return responseEmployeeDtos;
-        }
-        return null;
-    }*/
-
-        /*if (!employees.isEmpty()) {
-            // Use ModelMapper to map the entities to DTOs
-            List<ResponseEmployeeDto> responseEmployeeDtos = employeeMapper.toResponseEmployeeDtoList(employees);
-            return responseEmployeeDtos;
-        }
-     else {
-            throw new NotFoundException("No results!!!");
-        }*/
-
 
 }
