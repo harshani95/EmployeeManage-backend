@@ -1,10 +1,8 @@
 package com.devstack.employeemanage.service;
 
-import com.devstack.employeemanage.dto.EmployeeDto;
 import com.devstack.employeemanage.dto.request.RequestEmployeeDto;
 import com.devstack.employeemanage.dto.response.ResponseEmployeeDto;
-
-import java.util.List;
+import com.devstack.employeemanage.dto.response.paginated.PaginatedEmployeeResponseDto;
 
 public interface EmployeeService {
 
@@ -14,8 +12,10 @@ public interface EmployeeService {
 
     public ResponseEmployeeDto getEmployeeById(long id);
 
-    public String deleteEmployee(long id);
+    public void deleteEmployee(long id);
 
-    public List<ResponseEmployeeDto> getAllEmployees();
+   // public List<ResponseEmployeeDto> getAllEmployees();
+
+    public PaginatedEmployeeResponseDto getAllEmployees(String searchText, int page, int size);
 
 }

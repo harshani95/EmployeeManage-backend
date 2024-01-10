@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/employees")
-@CrossOrigin(origins = "http://localhost:5175")
+@CrossOrigin(origins = "http://localhost:5173")
 
 public class EmployeeController {
 
@@ -29,9 +29,9 @@ public class EmployeeController {
 
     @PostMapping(path = "/save")
     public ResponseEntity<StandardResponse> saveEmployee(@RequestBody RequestEmployeeDto requestEmployeeDto) {
-         String firstName = employeeService.saveEmployee(requestEmployeeDto);
+         String name = employeeService.saveEmployee(requestEmployeeDto);
         return new ResponseEntity<>(
-                new StandardResponse(201, "Successfully added", firstName), HttpStatus.CREATED
+                new StandardResponse(201, "Successfully added", name), HttpStatus.CREATED
         );
     }
 
@@ -43,7 +43,7 @@ public class EmployeeController {
     {
         employeeService.updateEmployee(id, requestEmployeeDto);
         return new ResponseEntity<>(
-                new StandardResponse(201, "Updated Successfully", requestEmployeeDto.getFullName()), HttpStatus.CREATED
+                new StandardResponse(201, "Updated Successfully", requestEmployeeDto.getName()), HttpStatus.CREATED
         );
     }
 
@@ -66,12 +66,45 @@ public class EmployeeController {
         );
     }
 
-    @GetMapping(path = "/get-all-employees")
+ /*   @GetMapping(path = "/get-all-employees")
     public ResponseEntity<StandardResponse> getAllEmployees() {
         List<ResponseEmployeeDto> allEmployees = employeeService.getAllEmployees();
         return new ResponseEntity<>(
                 new StandardResponse(200, "All Employee List", allEmployees), HttpStatus.OK
         );
+    }*/
+
+    @GetMapping(path = "/get-all-employees", params = {"searchText","page","size"})
+    public ResponseEntity<StandardResponse> getAllEmployees(
+            @RequestParam (name = "searchText" , defaultValue = "") String searchText,
+            @RequestParam (name = "page" , defaultValue = "0") int page,
+            @RequestParam (name = "size" , defaultValue = "10") int size
+    ){
+        return new ResponseEntity<>(
+                new StandardResponse(200,"data List!",employeeService.getAllEmployees(
+                        searchText, page, size)),
+                HttpStatus.OK
+        );
     }
+
+
+
+
+//    @GetMapping(path = "/get-by-name/{name}")
+//    public ResponseEntity<StandardResponse> getEmployeeByName(
+//            @PathVariable(value = "name") String name) throws NotFoundException {
+//        List<ResponseEmployeeDto> getEmployee = employeeService.getEmployeeByName(name);
+//        return new ResponseEntity<StandardResponse>(
+//                new StandardResponse(200,"",getEmployee),HttpStatus.OK
+//        );
+//    }
+
+//    @GetMapping(path = "/get-by-name", params = "name")
+//    public ResponseEntity<StandardResponse> getEmployeeByName(@RequestParam(value = "name") String name) throws NotFoundException {
+//        List<ResponseEmployeeDto> getEmployee = employeeService.getEmployeeByName(name);
+//        return new ResponseEntity<StandardResponse>(
+//                new StandardResponse(200,"",getEmployee),HttpStatus.OK
+//        );
+//    }
 
 }
