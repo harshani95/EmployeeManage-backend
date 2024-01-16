@@ -4,7 +4,7 @@ import com.devstack.employeemanage.dto.request.RequestEmployeeDto;
 import com.devstack.employeemanage.dto.response.ResponseEmployeeDto;
 import com.devstack.employeemanage.dto.response.paginated.PaginatedEmployeeResponseDto;
 import com.devstack.employeemanage.entity.Employee;
-import com.devstack.employeemanage.exception.NotFoundException;
+import com.devstack.employeemanage.exception.EntryNotFoundException;
 import com.devstack.employeemanage.repository.EmployeeRepo;
 import com.devstack.employeemanage.service.EmployeeService;
 import com.devstack.employeemanage.util.mapper.EmployeeMapper;
@@ -45,7 +45,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void updateEmployee(long id, RequestEmployeeDto requestEmployeeDto) {
         Optional<Employee> selectedEmployee = employeeRepo.findById(id);
         if (selectedEmployee.isEmpty()) {
-            throw new NotFoundException("Employee Not Found");
+            throw new EntryNotFoundException("Employee Not Found");
         }
         Employee employee = selectedEmployee.get();
         employee.setName(requestEmployeeDto.getName());
@@ -61,7 +61,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         Optional<Employee> selectedEmployee = employeeRepo.findById(id);
         if (selectedEmployee.isEmpty()) {
-            throw new NotFoundException("Employee Not Found");
+            throw new EntryNotFoundException("Employee Not Found");
         }
         return employeeMapper.toResponseEmployeeDto(selectedEmployee.get());
     }
@@ -71,7 +71,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         Optional<Employee> selectedEmployee = employeeRepo.findById(id);
         if (selectedEmployee.isEmpty()) {
-            throw new NotFoundException("Employee Not Found");
+            throw new EntryNotFoundException("Employee Not Found");
         }
         employeeRepo.deleteById(selectedEmployee.get().getId());
     }

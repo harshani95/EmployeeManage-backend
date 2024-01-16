@@ -1,9 +1,8 @@
 package com.devstack.employeemanage.controller;
 
-import com.devstack.employeemanage.dto.EmployeeDto;
 import com.devstack.employeemanage.dto.request.RequestEmployeeDto;
 import com.devstack.employeemanage.dto.response.ResponseEmployeeDto;
-import com.devstack.employeemanage.exception.NotFoundException;
+import com.devstack.employeemanage.exception.EntryNotFoundException;
 import com.devstack.employeemanage.service.impl.EmployeeServiceImpl;
 import com.devstack.employeemanage.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +57,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping(path = "/delete/{id}")
-    public ResponseEntity<StandardResponse> deleteEmployee(@PathVariable(value = "id") long id) throws NotFoundException {
+    public ResponseEntity<StandardResponse> deleteEmployee(@PathVariable(value = "id") long id) throws EntryNotFoundException {
         employeeService.deleteEmployee(id);
         return new ResponseEntity<>(
                 new StandardResponse(200, "Successfully Deleted!!",null), HttpStatus.OK
@@ -69,7 +68,7 @@ public class EmployeeController {
     public ResponseEntity<StandardResponse> getAllEmployees(
             @RequestParam (name = "searchText" , defaultValue = "") String searchText,
             @RequestParam (name = "page" , defaultValue = "0") int page,
-            @RequestParam (name = "size" , defaultValue = "10") int size
+            @RequestParam (name = "size" , defaultValue = "5") int size
     ){
         return new ResponseEntity<>(
                 new StandardResponse(200,"data List!",employeeService.getAllEmployees(

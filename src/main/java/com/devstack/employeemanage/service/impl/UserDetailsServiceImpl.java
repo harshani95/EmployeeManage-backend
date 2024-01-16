@@ -1,4 +1,4 @@
-package com.devstack.employeemanage.jwt;
+package com.devstack.employeemanage.service.impl;
 
 import com.devstack.employeemanage.entity.User;
 import com.devstack.employeemanage.repository.UserRepo;
