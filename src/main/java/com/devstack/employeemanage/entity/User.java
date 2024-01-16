@@ -15,28 +15,22 @@ import org.hibernate.annotations.NaturalId;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="user_id", length = 256, nullable = false)
+    @Column(name="user_id")
     private Long id;
 
-    @Column(name="user_firstname", length = 256, nullable = false)
     private String firstName;
 
-    @Column(name="user_lastname", length = 256, nullable = false)
     private String lastName;
 
-    @Column(name="username", length = 256, nullable = false)
-    private String username;
-
     @NaturalId(mutable = true)
-    @Column(name="user_email", length = 256, nullable = false)
     private String email;
 
-    @Column(name="user_password", length = 256, nullable = false)
     private String password;
 
-    private boolean isAccountNonExpired;
-    private boolean isCredentialsNonExpired;
-    private boolean isAccountNonLocked;
-    private boolean isEnabled = false;
-
+    public User(String firstName, String lastName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
 }
