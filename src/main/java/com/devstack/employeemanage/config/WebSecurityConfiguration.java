@@ -29,10 +29,10 @@ public class WebSecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
 
-                .authorizeHttpRequests(auth ->
-                auth.requestMatchers("api/v1/users/login", "api/v1/users/register").permitAll()
-                        .requestMatchers("/api/v1/users**")
-                        .authenticated()
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("api/v1/users/login", "api/v1/users/register").permitAll()
+                        .requestMatchers("api/v1/employees/get-all-employees").permitAll()
+                        .requestMatchers("api/v1/employees/**").authenticated()
 
         )
                 .httpBasic(Customizer.withDefaults()).build();

@@ -27,6 +27,8 @@ public class User {
 
     private String password;
 
+    private boolean activeState = true;
+
     public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
