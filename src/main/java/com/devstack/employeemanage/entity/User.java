@@ -22,12 +22,11 @@ public class User {
 
     private String lastName;
 
-    @NaturalId(mutable = true)
+   @NaturalId(mutable = true)
     private String email;
 
     private String password;
 
-    private boolean activeState = true;
 
     public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
