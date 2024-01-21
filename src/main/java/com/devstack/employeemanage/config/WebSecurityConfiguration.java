@@ -32,7 +32,7 @@ public class WebSecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/users/login", "/api/v1/users/register").permitAll()
                         /*.requestMatchers("/api/v1/employees/get-all-employees","/api/v1/employees/save",
-                                "/api/v1/employees/update/{id}", "/api/v1/employees/get-by-id/{id}",
+                               "/api/v1/employees/update/{id}", "/api/v1/employees/get-by-id/{id}",
                                 "/api/v1/employees/delete/{id}").permitAll()
                          */
                         .requestMatchers("/api/v1/employees/**").authenticated()
