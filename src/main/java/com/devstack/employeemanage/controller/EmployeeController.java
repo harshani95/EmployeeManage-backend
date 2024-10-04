@@ -70,7 +70,7 @@ public class EmployeeController {
             @RequestParam (name = "size" , defaultValue = "5") int size
     ){
         return new ResponseEntity<>(
-                new StandardResponse(200,"data List!",employeeService.getAllEmployees(
+                new StandardResponse(200,"Employee data List!",employeeService.getAllEmployees(
                         searchText, page, size)),
                 HttpStatus.OK
         );
