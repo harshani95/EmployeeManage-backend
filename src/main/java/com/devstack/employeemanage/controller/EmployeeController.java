@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/employees")
-
+@CrossOrigin(origins = "http://localhost:5173")
 public class EmployeeController {
 
     private final EmployeeServiceImpl employeeService;
@@ -24,7 +24,7 @@ public class EmployeeController {
     }
 
 
-    @PostMapping(path = "/save")
+    @PostMapping(path = "/admin/save")
     public ResponseEntity<StandardResponse> saveEmployee(@RequestBody RequestEmployeeDto requestEmployeeDto) {
          String name = employeeService.saveEmployee(requestEmployeeDto);
         return new ResponseEntity<>(
@@ -33,7 +33,7 @@ public class EmployeeController {
     }
 
 
-    @PutMapping(path = "/update/{id}")
+    @PutMapping(path = "/admin/update/{id}")
     public ResponseEntity<StandardResponse> updateEmployee(
             @PathVariable(value = "id") long id,
             @RequestBody RequestEmployeeDto requestEmployeeDto)
@@ -45,7 +45,7 @@ public class EmployeeController {
     }
 
 
-    @GetMapping(path = "/get-by-id/{id}")
+    @GetMapping(path = "/admin/get-by-id/{id}")
     public ResponseEntity<StandardResponse> getEmployeeById(
             @PathVariable(value = "id") long id)
     {
@@ -55,7 +55,7 @@ public class EmployeeController {
         );
     }
 
-    @DeleteMapping(path = "/delete/{id}")
+    @DeleteMapping(path = "/admin/delete/{id}")
     public ResponseEntity<StandardResponse> deleteEmployee(@PathVariable(value = "id") long id) throws EntryNotFoundException {
         employeeService.deleteEmployee(id);
         return new ResponseEntity<>(
@@ -63,7 +63,7 @@ public class EmployeeController {
         );
     }
 
-    @GetMapping(path = "/get-all-employees", params = {"searchText","page","size"})
+    @GetMapping(path = "/admin-user/get-all-employees", params = {"searchText","page","size"})
     public ResponseEntity<StandardResponse> getAllEmployees(
             @RequestParam (name = "searchText" , defaultValue = "") String searchText,
             @RequestParam (name = "page" , defaultValue = "0") int page,

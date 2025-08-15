@@ -13,21 +13,13 @@ import java.util.ArrayList;
 
 @RequiredArgsConstructor
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class ApplicationUserServiceImpl implements UserDetailsService {
 
     private final UserRepo userRepo;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User selectedUser = userRepo.findByEmail(email);
-        if (selectedUser == null) {
-            throw new UsernameNotFoundException("User not found", null);
-        }
-
-        return new org.springframework.security.core.userdetails.User(
-                selectedUser.getEmail(),
-                selectedUser.getPassword(),
-                new ArrayList<>());
+        return userRepo.findByEmail(email).orElseThrow();
     }
 }
 
