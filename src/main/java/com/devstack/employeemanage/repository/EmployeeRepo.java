@@ -14,9 +14,9 @@ import java.util.List;
 public interface EmployeeRepo extends JpaRepository<Employee, Long> {
 
    @Query(value = "SELECT * FROM employee WHERE name LIKE ?1 OR address LIKE ?1", nativeQuery = true)
-   public List<Employee> searchEmployees(String searchText, Pageable pageable);
+    List<Employee> searchEmployees(String searchText, Pageable pageable);
 
    @Query(value = "SELECT COUNT(*) FROM employee WHERE name LIKE ?1 OR address LIKE ?1", nativeQuery = true)
-   public Long countEmployees(String searchText);
+   Long countEmployees(String searchText);
 
 }

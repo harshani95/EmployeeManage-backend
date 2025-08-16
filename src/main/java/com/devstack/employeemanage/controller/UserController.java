@@ -2,14 +2,12 @@ package com.devstack.employeemanage.controller;
 
 import com.devstack.employeemanage.dto.request.RequestUserDto;
 import com.devstack.employeemanage.service.UserService;
-import com.devstack.employeemanage.service.impl.ApplicationUserServiceImpl;
-import com.devstack.employeemanage.util.JwtUtil;
+import com.devstack.employeemanage.service.impl.UserServiceImpl;
 import com.devstack.employeemanage.util.StandardResponse;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -18,8 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://localhost:5173")
 public class UserController {
 
-    private final UserService userService;
-
+    private final UserServiceImpl userService;
 
     @PostMapping("/register")
     public ResponseEntity<StandardResponse> registerUser(@RequestBody RequestUserDto userDto){
@@ -36,11 +33,8 @@ public class UserController {
            String token = userService.login(userDto);
 
         return new ResponseEntity<>(
-                new StandardResponse(HttpStatus.OK.value(), "Authentication successful", token),
+                new StandardResponse(HttpStatus.OK.value(), "Successfully logged", token),
                 HttpStatus.OK
         );
     }
-
-
-
 }

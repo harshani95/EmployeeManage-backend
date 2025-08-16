@@ -10,9 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
-@RequestMapping("/api/v1/employees")
+@RequestMapping("/api/v1")
 @CrossOrigin(origins = "http://localhost:5173")
 public class EmployeeController {
 
@@ -32,7 +31,6 @@ public class EmployeeController {
         );
     }
 
-
     @PutMapping(path = "/admin/update/{id}")
     public ResponseEntity<StandardResponse> updateEmployee(
             @PathVariable(value = "id") long id,
@@ -43,7 +41,6 @@ public class EmployeeController {
                 new StandardResponse(201, "Updated Successfully", requestEmployeeDto.getName()), HttpStatus.CREATED
         );
     }
-
 
     @GetMapping(path = "/admin/get-by-id/{id}")
     public ResponseEntity<StandardResponse> getEmployeeById(

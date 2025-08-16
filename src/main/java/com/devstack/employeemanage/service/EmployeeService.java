@@ -6,14 +6,14 @@ import com.devstack.employeemanage.dto.response.paginated.PaginatedEmployeeRespo
 
 public interface EmployeeService {
 
-    public String saveEmployee(RequestEmployeeDto requestEmployeeDto);
+     String saveEmployee(RequestEmployeeDto requestEmployeeDto);
 
-    public void updateEmployee(long id, RequestEmployeeDto requestEmployeeDto);
+     void updateEmployee(long id, RequestEmployeeDto requestEmployeeDto);
 
-    public ResponseEmployeeDto getEmployeeById(long id);
+     ResponseEmployeeDto getEmployeeById(long id);
 
-    public void deleteEmployee(long id);
+    void deleteEmployee(long id);
 
-    public PaginatedEmployeeResponseDto getAllEmployees(String searchText, int page, int size);
+     PaginatedEmployeeResponseDto getAllEmployees(String searchText, int page, int size);
 
 }

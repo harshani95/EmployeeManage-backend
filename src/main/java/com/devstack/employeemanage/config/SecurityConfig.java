@@ -33,7 +33,6 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/auth/**", "/public/**").permitAll()
                         .requestMatchers("/api/v1/admin/**").hasAnyAuthority("ADMIN")
                         .requestMatchers("/api/v1/user/**").hasAnyAuthority("USER")
-                        .requestMatchers("/api/v1/admin/**").hasAnyAuthority("ADMIN")
                         .requestMatchers("/api/v1/admin-user/**").hasAnyAuthority("ADMIN","USER")
                         .anyRequest().authenticated())
                 .sessionManagement(manager->manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -53,5 +52,6 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder(10);
     }
+
     
 }
