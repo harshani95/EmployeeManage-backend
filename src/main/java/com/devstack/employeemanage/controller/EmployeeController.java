@@ -42,7 +42,7 @@ public class EmployeeController {
         );
     }
 
-    @GetMapping(path = "/admin/get-by-id/{id}")
+    @GetMapping(path = "/admin-user/get-by-id/{id}")
     public ResponseEntity<StandardResponse> getEmployeeById(
             @PathVariable(value = "id") long id)
     {
